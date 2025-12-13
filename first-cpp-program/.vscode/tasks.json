@@ -1,68 +1,64 @@
 {
-	"version": "2.0.0",
-	"tasks": [
-		{
-			"type": "cppbuild",
-			"label": "Build with GCC 14.2.0",
-			"command": "C:\\mingw64\\bin\\g++.exe",
-			"args": [
-				"-fdiagnostics-color=always",
-				"-g",
-				"-std=c++2c",
-				"${workspaceFolder}\\*.cpp",
-				"-o",
-				"${fileDirname}\\${fileBasenameNoExtension}.exe"
-			],
-			"options": {
-				"cwd": "${fileDirname}"
-			},
-			"problemMatcher": [
-				"$gcc"
-			],
-			"group": "build",
-			"detail": "compiler: C:\\mingw64\\bin\\g++.exe"
-		},
-		{
-			"type": "cppbuild",
-			"label": "Build with Clang 19.1.7",
-			"command": "C:\\mingw64\\bin\\clang++.exe",
-			"args": [
-				"-fdiagnostics-color=always",
-				"-g",
-				"-std=c++2c",
-				"${workspaceFolder}\\*.cpp",
-				"-o",
-				"${fileDirname}\\${fileBasenameNoExtension}.exe"
-			],
-			"options": {
-				"cwd": "${fileDirname}"
-			},
-			"problemMatcher": [
-				"$gcc"
-			],
-			"group": "build",
-			"detail": "compiler: C:\\mingw64\\bin\\clang++.exe"
-		},
-		{
-			"type": "cppbuild",
-			"label": "Build with MSVC",
-			"command": "cl.exe",
-			"args": [
-				"/Zi",
-				"/std:c++latest",
-				"/EHsc",
-				"/Fe",
-				"/Fe${fileDirname}\\${fileBasenameNoExtension}.exe",
-				"${workspaceFolder}\\*.cpp"
-			],
-			"options": {
-				"cwd": "${fileDirname}"
-			},
-			"problemMatcher": [
-				"$msCompile"
-			],
-			"group": "build",
-			"detail": "compiler: cl.exe"
-		}
-	]
+    "tasks": [
+        {
+            // --- DEBUG BUILD ---
+            "type": "cppbuild",
+            "label": "Build: DEBUG", 
+            "command": "C:\\mingw64\\bin\\g++.exe",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "-ggdb",
+                "-pedantic-errors",
+                "-Wall",
+                "-Weffc++",
+                "-Wextra",
+                "-Wconversion",
+                "-Wsign-conversion",
+                "-Werror",
+                "-std=c++23",
+                "${file}",
+                "-o",
+                "${fileDirname}\\${fileBasenameNoExtension}.exe"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "Builds with debug info (gdb)."
+        },
+        {
+            // --- RELEASE BUILD ---
+            "type": "cppbuild",
+            "label": "Build: RELEASE",
+            "command": "C:\\mingw64\\bin\\g++.exe",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-O2",
+                "-DNDEBUG",
+                "-pedantic-errors",
+                "-std=c++23",
+                "${file}",
+                "-o",
+                "${fileDirname}\\${fileBasenameNoExtension}.exe"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build"
+            },
+            "detail": "Builds optimized release version."
+        }
+    ],
+    "version": "2.0.0"
 }
